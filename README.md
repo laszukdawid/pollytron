@@ -1,2 +1,7 @@
-# pollytron
-Desktop client to use the AWS Polly.
+# Mighty PollyTron!
+
+## State
+It's... usuable? Just give me a couple more days.
+
+## Progress
+Forward.

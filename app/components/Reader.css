@@ -1,0 +1,8 @@
+.readconf {
+  display: flex;
+  flex-direction: column;
+  margin: 1.5em;
+}
+.readconf .row {
+  margin: 0.2em;
+}

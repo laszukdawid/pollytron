@@ -1,0 +1,27 @@
+.container {
+  position: absolute;
+  top: 10%;
+  margin: 10px;
+  text-align: center;
+  justify-items: left;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.container h2 {
+  font-size: 5rem;
+}
+
+.container a {
+  font-size: 1.4rem;
+}
+.body {
+  position: absolute;
+  top: 50%;
+  text-align: center;
+  width: 100%;
+}
+.body textarea {
+  width: 100%;
+}
