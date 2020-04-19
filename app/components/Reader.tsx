@@ -50,8 +50,7 @@ export default function Reader() {
   }
 
   return (
-    <div>
-      <form onSubmit={onSubmit} >
+      <div className={styles.reader} onSubmit={onSubmit} >
         <div className={styles.readconf}>
           <div className={styles.row}>
             <span>Language:</span>
@@ -68,10 +67,9 @@ export default function Reader() {
         </div>
         <div className={styles.readtext}>
           <span>Type to send:</span>
-          <textarea value={readText} onChange={ev => setReadText(ev.target.value)} />
+          <textarea className={styles.textarea} value={readText} onChange={ev => setReadText(ev.target.value)} />
+          <button type="submit">Read</button>
         </div>
-        <button type="submit">Read</button>
-      </form>
-    </div>
+      </div>
   );
 }

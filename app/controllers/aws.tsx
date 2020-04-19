@@ -27,9 +27,11 @@ export function speakText(text: string, voiceId: string) {
   const polly = new AWS.Polly({apiVersion: '2016-06-10'});
 
   polly.synthesizeSpeech(speechParams, (err, data) => {
-    if (err) console.log(err, err.stack);
-    else {
-      if (data.AudioStream === undefined) return;
+    if (err) {
+      console.log(err, err.stack);
+    }
+
+    if (data.AudioStream instanceof Buffer) {
       const uInt8Array = new Uint8Array(data.AudioStream);
       const arrayBuffer = uInt8Array.buffer;
       const blob = new Blob([arrayBuffer]);
@@ -41,6 +43,7 @@ export function speakText(text: string, voiceId: string) {
         html5: true,
       });
       sound.play()
+
     }
   });
 }

@@ -24,34 +24,37 @@ export default function Config(props: Props) {
     updateAwsConfig(newConfig)
   }
 
-
   return (
-    <div>
-      <div className={styles.backButton} data-tid="backButton">
-        <Link to={routes.HOME}>
-          <i className="fa fa-arrow-left fa-3x" />
-        </Link>
+    <div className={styles.configPage} >
+      <div className={styles.configNav} 
+      style={{display: "flex"}}
+      >
+        <div className={styles.backButton}>
+          <Link to={routes.HOME}>
+            <i className="fa fa-arrow-left fa-3x" />
+          </Link>
+        </div>
         <h1>Configuration</h1>
+        <button type='submit' onClick={submitConfig} >
+          <i className="fa fa-save" />
+          Save
+        </button>
       </div>
+
       <div className={styles.config} >
-        <form>
-          <div className="row" >
-            <span>AWS region</span>
-            <input type="text" value={region} onChange={ev => setRegion(ev.target.value)} />
-          </div>
-          <div className="row" >
-            <span>Access Key</span>
-            <input type="text" value={accessKeyId} onChange={ev => setAccessKeyId(ev.target.value)} />
-          </div>
-          <div className="row" >
-            <span>Secret key</span>
-            <input type="text" value={secretAccessKey} onChange={ev => setSecretAccessKey(ev.target.value)} />
-          </div>
-          <button type='submit' onClick={submitConfig} >Save</button>
-        </form>
-      </div>
-      <div>
-        <span></span>
+        <div className={styles.awsConfig}>
+          <h2>AWS Config</h2>
+          <form>
+              <span style={{gridRow: 1, gridColumn: 1}} >AWS region</span>
+              <input style={{gridRow: 1, gridColumnStart: 2, gridColumnEnd: 4}} type="text" value={region} onChange={ev => setRegion(ev.target.value)} />
+
+              <span style={{gridRow: 2, gridColumn: 1}} >Access Key</span>
+              <input style={{gridRow: 2, gridColumnStart: 2, gridColumnEnd: 4}} type="text" value={accessKeyId} onChange={ev => setAccessKeyId(ev.target.value)} />
+
+              <span style={{gridRow: 3, gridColumn: 1}} >Secret key</span>
+              <input style={{gridRow: 3, gridColumnStart: 2, gridColumnEnd: 4}} type="text" value={secretAccessKey} onChange={ev => setSecretAccessKey(ev.target.value)} />
+          </form>
+        </div>
       </div>
     </div>
   );

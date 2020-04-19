@@ -6,11 +6,11 @@ import Reader from './Reader';
 
 export default function Home() {
   return (
-    <div>
-      <div className={styles.container} data-tid="container">
-        <h2>PollyTron</h2>
-        <Link to={routes.CONFIG}>Configuration</Link>
+    <div className={styles.container} >
+      <div className={styles.options} >
+        <Link to={routes.CONFIG}>Configurations</Link>
       </div>
+      <hr style={{width: "100%"}} />
       <div className={styles.body}>
         <Reader />
       </div>
