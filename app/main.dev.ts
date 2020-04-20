@@ -9,7 +9,7 @@
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow } from 'electron';
+import { app, globalShortcut, BrowserWindow, clipboard } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -23,6 +23,8 @@ export default class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
+
+const READ_SHORTCUT = "CommandOrControl+Shift+Space";
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -108,10 +110,28 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('ready', createWindow);
+app.on('ready', async () => {
+  if (mainWindow === null) await createWindow();
+  const ret = globalShortcut.register(READ_SHORTCUT, () => {
+    console.log(READ_SHORTCUT)
+    mainWindow.webContents.send('speak', clipboard.readText());
+  })
+
+  if (!ret) {
+    console.log('registration failed')
+  }
+});
 
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) createWindow();
 });
+
+app.on('will-quit', () => {
+  // Unregister a shortcut.
+  globalShortcut.unregister(READ_SHORTCUT)
+
+  // Unregister all shortcuts.
+  globalShortcut.unregisterAll()
+})

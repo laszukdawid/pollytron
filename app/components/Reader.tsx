@@ -1,6 +1,8 @@
+import { ipcRenderer } from "electron";
 import React, { useState} from "react";
 import styles from './Reader.css';
 import { speakText } from "../controllers/aws";
+import * as reader from "../controllers/reader";
 
 type langVoices = {
   english: string[],
@@ -11,6 +13,11 @@ const voicePerLanguage: langVoices  = {
   'english': ['Joanna', 'Salli', 'Kimberly', 'Kendra', 'Ivy', 'Matthew', 'Justin', 'Joey'],
   'polish': ['Ewa', 'Maja', 'Jan', 'Jacek'],
 }
+
+ipcRenderer.on('speak', (event, args) => {
+  console.log("IPC Renderer");
+  reader.readClipboard();
+});
 
 export default function Reader() {
   const [readText, setReadText] = useState("");
@@ -29,24 +36,29 @@ export default function Reader() {
       return
     }
     setLanguage(lang);
-    setVoice(voicePerLanguage[lang][0]);
+    _setVoice(voicePerLanguage[lang][0]);
+  };
+
+  const _setVoice = (newVoice: string) => {
+    reader.setVoice(newVoice);
+    setVoice(newVoice);
+  }
+  const _setSpeed = (newSpeed: number) => {
+    reader.setSpeed(newSpeed);
+    setSpeed(newSpeed);
   };
 
   const voiceOptions = voicePerLanguage[language].map(
     (voice: string) => <option key={voice} value={voice}>{voice}</option>);
   
   const voiceSelector = (
-    <select value={voice} onChange={ev => setVoice(ev.target.value)} >
+    <select value={voice} onChange={ev => _setVoice(ev.target.value)} >
      {voiceOptions} 
     </select>);
 
   const onSubmit = () => {
-    const augmentedText = augmentText(readText);
+    const augmentedText = reader.augmentText(readText, speed);
     speakText(augmentedText, voice);
-  }
-
-  const augmentText = (txt: string) => {
-    return `<speak><prosody rate='${speed}%'>${txt}</prosody></speak>`
   }
 
   return (
@@ -62,13 +74,14 @@ export default function Reader() {
           </div>
           <div className={styles.row}>
             <span>Speed:</span>
-            <input type="number" value={speed} onChange={ev => setSpeed(Number(ev.target.value))} />
+            <input type="number" value={speed} onChange={ev => _setSpeed(Number(ev.target.value))} />
           </div>
         </div>
         <div className={styles.readtext}>
           <span>Type to send:</span>
           <textarea className={styles.textarea} value={readText} onChange={ev => setReadText(ev.target.value)} />
-          <button type="submit">Read</button>
+          <button type="submit" onClick={onSubmit} >Read</button>
+          <button type="submit" onClick={reader.readClipboard} >Read from clipboard</button>
         </div>
       </div>
   );
