@@ -37,10 +37,15 @@
 }
 .awsConfig {
   flex: 1;
-  max-width: 80%;
+  max-width: 100%;
 }
+
+.awsConfig > * {
+  margin: 1em 0;
+}
+
 .awsConfig form {
   display: grid;
   grid-row-gap: 8px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(12, 1fr);
 }

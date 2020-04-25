@@ -8,10 +8,11 @@
  * When running `yarn build` or `yarn build-main`, this file is compiled to
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
  */
-import path from 'path';
-import { app, globalShortcut, BrowserWindow, clipboard } from 'electron';
+import AWS from "aws-sdk";
+import { app, globalShortcut, BrowserWindow, clipboard, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import path from 'path';
 import MenuBuilder from './menu';
 
 export default class AppUpdater {
@@ -114,7 +115,7 @@ app.on('ready', async () => {
   if (mainWindow === null) await createWindow();
   const ret = globalShortcut.register(READ_SHORTCUT, () => {
     console.log(READ_SHORTCUT)
-    mainWindow.webContents.send('speak', clipboard.readText());
+    mainWindow?.webContents.send('speak', clipboard.readText());
   })
 
   if (!ret) {
@@ -134,4 +135,13 @@ app.on('will-quit', () => {
 
   // Unregister all shortcuts.
   globalShortcut.unregisterAll()
+})
+
+ipcMain.on("profile", (event, profileName) => {
+  console.log(`Requesting profile ${profileName}`)
+  const credentials = new AWS.SharedIniFileCredentials({profile: profileName})
+
+  const { region } = AWS.config;
+  const { accessKeyId, secretAccessKey } = credentials;
+  event.returnValue = {region, accessKeyId, secretAccessKey};
 })

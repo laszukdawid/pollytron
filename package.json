@@ -260,9 +260,11 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@hot-loader/react-dom": "^16.13.0",
-    "connected-react-router": "^6.6.1",
+    "@types/btoa": "^1.2.3",
     "@types/howler": "^2.1.2",
     "aws-sdk": "^2.656.0",
+    "btoa": "^1.2.1",
+    "connected-react-router": "^6.6.1",
     "core-js": "^3.6.4",
     "devtron": "^1.4.0",
     "electron-debug": "^3.0.1",
