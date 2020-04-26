@@ -2,9 +2,9 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from "react-redux";
 import Config from "../components/Config";
 import { updateAwsConfig } from "../actions/config";
-import { counterStateType } from "../reducers/types";
+import { stateType } from "../reducers/types";
 
-const mapStateToProps = (state: counterStateType) => {
+const mapStateToProps = (state: stateType) => {
   return {
     awsConfig: state.awsConfig,
   }

@@ -1,13 +1,23 @@
 import { Dispatch as ReduxDispatch, Store as ReduxStore, Action } from 'redux';
-import { awsConfigType } from "../types";
 
-export type counterStateType = {
+export type readerStateType = string;
+
+export type awsConfigType = {
+    region: string,
+    accessKeyId: string,
+    secretAccessKey: string,
+    profile?: string,
+}
+
+
+export type stateType = {
   counter: number,
   awsConfig: awsConfigType,
+  reader: readerStateType,
 };
 
-export type GetState = () => counterStateType;
+export type GetState = () => stateType;
 
 export type Dispatch = ReduxDispatch<Action<string>>;
 
-export type Store = ReduxStore<counterStateType, Action<string>>;
+export type Store = ReduxStore<stateType, Action<string>>;

@@ -3,6 +3,12 @@ import React, { useState} from "react";
 import styles from './Reader.css';
 import { speakText } from "../controllers/aws";
 import * as reader from "../controllers/reader";
+import { readerStateType } from "../reducers/types";
+
+type ReaderProps = {
+  readText: readerStateType,
+  setReadText: Function,
+}
 
 type langVoices = {
   english: string[],
@@ -19,8 +25,7 @@ ipcRenderer.on('speak', (event, args) => {
   reader.readClipboard();
 });
 
-export default function Reader() {
-  const [readText, setReadText] = useState("");
+export default function Reader(props: ReaderProps) {
   const [language, setLanguage] = useState("english");
   const [voice, setVoice] = useState("Joanna");
   const [speed, setSpeed] = useState(100);
@@ -57,7 +62,7 @@ export default function Reader() {
     </select>);
 
   const onSubmit = () => {
-    const augmentedText = reader.augmentText(readText, speed);
+    const augmentedText = reader.augmentText(props.readText, speed);
     speakText(augmentedText, voice);
   }
 
@@ -79,7 +84,7 @@ export default function Reader() {
         </div>
         <div className={styles.readtext}>
           <span>Type to send:</span>
-          <textarea className={styles.textarea} value={readText} onChange={ev => setReadText(ev.target.value)} />
+          <textarea className={styles.textarea} value={props.readText} onChange={ev => props.setReadText(ev.target.value)} />
           <button type="submit" onClick={onSubmit} >Read</button>
           <button type="submit" onClick={reader.readClipboard} >Read from clipboard</button>
         </div>

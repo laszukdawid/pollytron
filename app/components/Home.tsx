@@ -4,7 +4,14 @@ import routes from '../constants/routes.json';
 import styles from './Home.css';
 import Reader from './Reader';
 
-export default function Home() {
+import { readerStateType } from '../reducers/types';
+
+type Props = {
+  reader: readerStateType,
+  setReadText: (text: string) => void,
+}
+
+export default function Home(props: Props) {
   return (
     <div className={styles.container} >
       <div className={styles.options} >
@@ -12,7 +19,7 @@ export default function Home() {
       </div>
       <hr style={{width: "100%"}} />
       <div className={styles.body}>
-        <Reader />
+        <Reader readText={props.reader} setReadText={props.setReadText} />
       </div>
     </div>
   );

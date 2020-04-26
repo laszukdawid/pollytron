@@ -3,7 +3,7 @@ import { updateAwsConfig } from "../controllers/aws";
 import { Link } from 'react-router-dom';
 import styles from './Config.css';
 import routes from '../constants/routes.json';
-import { awsConfigType } from '../types';
+import { awsConfigType } from '../reducers/types';
 import { ipcRenderer } from 'electron';
 
 type Props = {
