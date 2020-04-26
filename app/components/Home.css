@@ -15,6 +15,10 @@
 .options {
   flex: 0;
   margin: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-weight: bold;
 }
 .body {
   text-align: left;

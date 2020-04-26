@@ -1,5 +1,6 @@
 {
   "HOME": "/",
   "COUNTER": "/counters",
-  "CONFIG": "/config"
+  "CONFIG": "/config",
+  "SHORTCUTS": "/shortcuts"
 }

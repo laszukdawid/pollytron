@@ -5,6 +5,7 @@ import App from './containers/App';
 import ConfigPage from './containers/ConfigPage';
 import HomePage from './containers/HomePage';
 import CounterPage from './containers/CounterPage';
+import ShortcutsPage from './containers/ShortcutsPage';
 
 export default function Routes() {
   return (
@@ -12,6 +13,7 @@ export default function Routes() {
       <Switch>
         <Route path={routes.CONFIG} component={ConfigPage} />
         <Route path={routes.COUNTER} component={CounterPage} />
+        <Route path={routes.SHORTCUTS} component={ShortcutsPage} />
         {/* This needs to be the last, otherwise all falls under / */}
         <Route path={routes.HOME} component={HomePage} />
       </Switch>

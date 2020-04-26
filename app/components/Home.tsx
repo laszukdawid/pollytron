@@ -16,6 +16,7 @@ export default function Home(props: Props) {
     <div className={styles.container} >
       <div className={styles.options} >
         <Link to={routes.CONFIG}>Configurations</Link>
+        <Link to={routes.SHORTCUTS}>Shortcuts</Link>
       </div>
       <hr style={{width: "100%"}} />
       <div className={styles.body}>
