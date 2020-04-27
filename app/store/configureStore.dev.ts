@@ -6,7 +6,7 @@ import { createLogger } from 'redux-logger';
 import createRootReducer from '../reducers';
 import * as counterActions from '../actions/counter';
 import * as configActions from '../actions/config';
-import { counterStateType } from '../reducers/types';
+import { stateType } from '../reducers/types';
 
 declare global {
   interface Window {
@@ -26,7 +26,7 @@ const history = createHashHistory();
 
 const rootReducer = createRootReducer(history);
 
-const configureStore = (initialState?: counterStateType) => {
+const configureStore = (initialState?: stateType) => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];

@@ -15,7 +15,6 @@ Yep, it's almost done. Just a few small cosmetic tweaks.
 ## Progress
 
 I'm planning on adding a few killer features, e.g.:
-* Store configuration for later use
 * Allow reading text longer than 2 sentences
 * Pause media
 * Proper instructions on how to build and use

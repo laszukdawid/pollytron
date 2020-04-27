@@ -1,7 +1,7 @@
 import AWS, { Polly } from "aws-sdk";
+import btoa from "btoa";
 import { Howl } from 'howler';
 import { awsConfigType } from '../reducers/types';
-import btoa from "btoa";
 
 export function updateAwsConfig(awsConfig: awsConfigType) {
   console.log("Updating AWS config")
