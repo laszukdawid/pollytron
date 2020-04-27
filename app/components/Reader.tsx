@@ -1,5 +1,5 @@
 import { ipcRenderer } from "electron";
-import React, { useState} from "react";
+import React, { useState } from "react";
 import styles from './Reader.css';
 import { speakText } from "../controllers/aws";
 import * as reader from "../controllers/reader";
@@ -15,14 +15,14 @@ type langVoices = {
   polish: string[],
 }
 
-const voicePerLanguage: langVoices  = {
+const voicePerLanguage: langVoices = {
   'english': ['Joanna', 'Salli', 'Kimberly', 'Kendra', 'Ivy', 'Matthew', 'Justin', 'Joey'],
   'polish': ['Ewa', 'Maja', 'Jan', 'Jacek'],
 }
 
 ipcRenderer.on('speak', (event, args) => {
-  console.log("IPC Renderer");
-  reader.readClipboard();
+  console.log('IPC Renderer');
+  reader.toggleReadClipboard();
 });
 
 export default function Reader(props: ReaderProps) {
@@ -55,39 +55,38 @@ export default function Reader(props: ReaderProps) {
 
   const voiceOptions = voicePerLanguage[language].map(
     (voice: string) => <option key={voice} value={voice}>{voice}</option>);
-  
+
   const voiceSelector = (
     <select value={voice} onChange={ev => _setVoice(ev.target.value)} >
-     {voiceOptions} 
+      {voiceOptions}
     </select>);
 
   const onSubmit = () => {
-    const augmentedText = reader.augmentText(props.readText, speed);
-    speakText(augmentedText, voice);
+    reader.readText(props.readText);
   }
 
   return (
-      <div className={styles.reader} onSubmit={onSubmit} >
-        <div className={styles.readconf}>
-          <div className={styles.row}>
-            <span>Language:</span>
-            {languageSelector}
-          </div>
-          <div className={styles.row}>
-            <span>Voice:</span>
-            {voiceSelector}
-          </div>
-          <div className={styles.row}>
-            <span>Speed:</span>
-            <input type="number" value={speed} onChange={ev => _setSpeed(Number(ev.target.value))} />
-          </div>
+    <div className={styles.reader} onSubmit={onSubmit} >
+      <div className={styles.readconf}>
+        <div className={styles.row}>
+          <span>Language:</span>
+          {languageSelector}
         </div>
-        <div className={styles.readtext}>
-          <span>Type to send:</span>
-          <textarea className={styles.textarea} value={props.readText} onChange={ev => props.setReadText(ev.target.value)} />
-          <button type="submit" onClick={onSubmit} >Read</button>
-          <button type="submit" onClick={reader.readClipboard} >Read from clipboard</button>
+        <div className={styles.row}>
+          <span>Voice:</span>
+          {voiceSelector}
+        </div>
+        <div className={styles.row}>
+          <span>Speed:</span>
+          <input type="number" value={speed} onChange={ev => _setSpeed(Number(ev.target.value))} />
         </div>
       </div>
+      <div className={styles.readtext}>
+        <span>Type to send:</span>
+        <textarea className={styles.textarea} value={props.readText} onChange={ev => props.setReadText(ev.target.value)} />
+        <button type="submit" onClick={onSubmit} >Read</button>
+        <button type="submit" onClick={reader.readClipboard} >Read from clipboard</button>
+      </div>
+    </div>
   );
 }
