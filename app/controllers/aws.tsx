@@ -28,8 +28,9 @@ export function speakText(text: string, voiceId: string) {
       console.log(err, err.stack);
     }
 
-    let arrayBuffer = Uint8Array.from(data.AudioStream).buffer;
-    let base64String = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+    const arrayBuffer = Uint8Array.from(data.AudioStream).buffer;
+    const blob = new Uint8Array(arrayBuffer).reduce((data, byte) => data + String.fromCharCode(byte), '')
+    const base64String = btoa(blob);
     const howlSource = ["data:audio/mp3;base64," + base64String];
 
     const sound = new Howl({
