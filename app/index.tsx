@@ -20,7 +20,9 @@ store.subscribe(throttle(() => {
   })
 }, 5000));
 
-updateAwsConfig(persistedState.awsConfig)
+if (persistedState) {
+  updateAwsConfig(persistedState.awsConfig)
+}
 
 const AppContainer = process.env.PLAIN_HMR ? Fragment : ReactHotAppContainer;
 
