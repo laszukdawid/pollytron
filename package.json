@@ -52,8 +52,8 @@
     ]
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.develar.ElectronReact",
+    "productName": "Pollytron",
+    "appId": "com.laszukdawid.Pollytron",
     "files": [
       "dist/",
       "node_modules/",
@@ -96,8 +96,7 @@
     },
     "publish": {
       "provider": "github",
-      "owner": "electron-react-boilerplate",
-      "repo": "electron-react-boilerplate",
+      "owner": "Dawid Laszuk",
       "private": false
     }
   },
