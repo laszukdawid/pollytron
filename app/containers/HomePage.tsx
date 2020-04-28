@@ -6,7 +6,7 @@ import { stateType } from "../reducers/types";
 
 const mapStateToProps = (state: stateType) => {
   return {
-    reader: state.reader,
+    readText: state.readText,
   }
 }
 

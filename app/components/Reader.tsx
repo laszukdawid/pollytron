@@ -1,12 +1,11 @@
 import { ipcRenderer } from "electron";
 import React, { useState } from "react";
 import styles from './Reader.css';
-import { speakText } from "../controllers/aws";
 import * as reader from "../controllers/reader";
-import { readerStateType } from "../reducers/types";
+import { textStateType } from "../reducers/types";
 
 type ReaderProps = {
-  readText: readerStateType,
+  readText: textStateType,
   setReadText: Function,
 }
 

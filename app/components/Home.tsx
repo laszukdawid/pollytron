@@ -4,10 +4,10 @@ import routes from '../constants/routes.json';
 import styles from './Home.css';
 import Reader from './Reader';
 
-import { readerStateType } from '../reducers/types';
+import { textStateType } from '../reducers/types';
 
 type Props = {
-  reader: readerStateType,
+  readText: textStateType,
   setReadText: (text: string) => void,
 }
 
@@ -20,7 +20,7 @@ export default function Home(props: Props) {
       </div>
       <hr style={{width: "100%"}} />
       <div className={styles.body}>
-        <Reader readText={props.reader} setReadText={props.setReadText} />
+        <Reader readText={props.readText} setReadText={props.setReadText} />
       </div>
     </div>
   );
