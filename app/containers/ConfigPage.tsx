@@ -1,7 +1,7 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from "react-redux";
 import Config from "../components/Config";
-import { updateAwsConfig } from "../actions/config";
+import { updateAwsConfig } from "../actions/awsConfig";
 import { stateType } from "../reducers/types";
 
 const mapStateToProps = (state: stateType) => {

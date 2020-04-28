@@ -5,7 +5,9 @@ import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
 import createRootReducer from '../reducers';
 import * as counterActions from '../actions/counter';
-import * as configActions from '../actions/config';
+import * as awsConfigActions from '../actions/awsConfig';
+import * as readerTextActions from '../actions/readerText';
+import * as readerConfigActions from '../actions/readerConfig';
 import { stateType } from '../reducers/types';
 
 declare global {
@@ -52,8 +54,10 @@ const configureStore = (initialState?: stateType) => {
   // Redux DevTools Configuration
   const actionCreators = {
     ...counterActions,
-    ...configActions,
-    ...routerActions
+    ...awsConfigActions,
+    ...readerTextActions,
+    ...readerConfigActions,
+    ...routerActions,
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
   /* eslint-disable no-underscore-dangle */

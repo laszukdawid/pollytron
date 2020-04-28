@@ -1,21 +1,28 @@
-import _ from "lodash";
-import { clipboard } from "electron";
+import _ from 'lodash';
+import { clipboard } from 'electron';
 import { Howl } from 'howler';
-import { speakText } from "./aws";
+import { speakText } from './aws';
+import { readerConfigType } from '../reducers/types';
 
 var sound: any = null;
 var playing = false;
 
-var speed = 100;
-var voice = "Joanna";
-// let voices = ['Joanna', 'Salli', 'Kimberly', 'Kendra', 'Ivy', 'Matthew', 'Justin', 'Joey']
-
-const augmentText = (txt: string, speed: number) => {
-  return `<speak><prosody rate='${speed}%'>${txt}</prosody></speak>`
+var config: readerConfigType = {
+  language: 'english',
+  speed: 100,
+  voice: 'Joanna', // ['Joanna', 'Salli', 'Kimberly', 'Kendra', 'Ivy', 'Matthew', 'Justin', 'Joey']
 }
 
-const setVoice = (newVoice: string) => { voice = newVoice; };
-const setSpeed = (newSpeed: number) => { speed = newSpeed; };
+const updateConfig = (newConfig: readerConfigType) => {
+  config = {...newConfig};
+}
+
+const augmentText = (txt: string, speed: number) => {
+  return `<speak><prosody rate='${speed}%'>${txt}</prosody></speak>`;
+}
+
+const setVoice = (newVoice: string) => { config['voice'] = newVoice; };
+const setSpeed = (newSpeed: number) => { config['speed'] = newSpeed; };
 
 const toggleReadClipboard = async () => {
   if (playing) {
@@ -26,10 +33,11 @@ const toggleReadClipboard = async () => {
 }
 
 const readClipboard = async () => {
-  return readText(clipboard.readText());
+  return readText(clipboard.readText(), config);
 };
 
-const readText = async (txt: string) => {
+const readText = async (txt: string, config: readerConfigType) => {
+  const { voice, speed } = config;
   console.log(`${voice} - ${speed} - \n${txt}`);
   const augmentedText = augmentText(txt, speed);
   const howlSource: string[] = await speakText(augmentedText, voice);
@@ -61,6 +69,7 @@ export {
   pauseSpeech,
   readClipboard,
   readText,
+  updateConfig,
   setSpeed,
   setVoice,
   toggleReadClipboard,

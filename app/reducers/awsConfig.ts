@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { UPDATE_AWS_CONFIG } from '../actions/config';
+import { UPDATE_AWS_CONFIG } from '../actions/awsConfig';
 import { awsConfigType } from './types';
 
 const initConfigState: awsConfigType = {

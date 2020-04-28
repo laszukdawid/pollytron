@@ -2,11 +2,13 @@ import { ipcRenderer } from "electron";
 import React, { useState } from "react";
 import styles from './Reader.css';
 import * as reader from "../controllers/reader";
-import { textStateType } from "../reducers/types";
+import { textStateType, readerConfigType } from "../reducers/types";
 
 type ReaderProps = {
-  readText: textStateType,
-  setReadText: Function,
+  readerConfig: readerConfigType,
+  readerText: textStateType,
+  setReaderConfig: Function,
+  setReaderText: Function,
 }
 
 type langVoices = {
@@ -25,9 +27,9 @@ ipcRenderer.on('speak', (event, args) => {
 });
 
 export default function Reader(props: ReaderProps) {
-  const [language, setLanguage] = useState("english");
-  const [voice, setVoice] = useState("Joanna");
-  const [speed, setSpeed] = useState(100);
+  const [language, setLanguage] = useState(props.readerConfig.language);
+  const [voice, setVoice] = useState(props.readerConfig.voice);
+  const [speed, setSpeed] = useState(props.readerConfig.speed);
 
   const languageSelector = (
     <select value={language} onChange={ev => changeLanguage(ev.target.value)} >
@@ -35,20 +37,25 @@ export default function Reader(props: ReaderProps) {
       <option value="polish">Polish</option>
     </select>);
 
-  const changeLanguage = (lang: string) => {
-    if (lang != 'english' && lang != 'polish') {
+  const changeLanguage = (newLanguage: string) => {
+    if (newLanguage != 'english' && newLanguage != 'polish') {
       return
     }
-    setLanguage(lang);
-    _setVoice(voicePerLanguage[lang][0]);
+    const newVoice = voicePerLanguage[newLanguage][0];
+    props.setReaderConfig({language: newLanguage, speed, voice: newVoice})
+
+    setLanguage(newLanguage);
+    _setVoice(voicePerLanguage[newLanguage][0]);
   };
 
   const _setVoice = (newVoice: string) => {
     reader.setVoice(newVoice);
+    props.setReaderConfig({language, speed, voice: newVoice})
     setVoice(newVoice);
   }
   const _setSpeed = (newSpeed: number) => {
     reader.setSpeed(newSpeed);
+    props.setReaderConfig({language, voice, speed: newSpeed})
     setSpeed(newSpeed);
   };
 
@@ -61,7 +68,7 @@ export default function Reader(props: ReaderProps) {
     </select>);
 
   const onSubmit = () => {
-    reader.readText(props.readText);
+    reader.readText(props.readerText, props.readerConfig);
   }
 
   return (
@@ -82,7 +89,7 @@ export default function Reader(props: ReaderProps) {
       </div>
       <div className={styles.readtext}>
         <span>Type to send:</span>
-        <textarea className={styles.textarea} value={props.readText} onChange={ev => props.setReadText(ev.target.value)} />
+        <textarea className={styles.textarea} value={props.readerText} onChange={ev => props.setReaderText(ev.target.value)} />
         <button type="submit" onClick={onSubmit} >Read</button>
         <button type="submit" onClick={reader.readClipboard} >Read from clipboard</button>
       </div>

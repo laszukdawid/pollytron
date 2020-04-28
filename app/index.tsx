@@ -7,6 +7,7 @@ import { updateAwsConfig } from "./controllers/aws";
 import { configureStore, history } from './store/configureStore';
 import { loadState, saveState } from './store/localStore';
 import './app.global.css';
+import { updateConfig as updateReaderConfig } from "./controllers/reader";
 
 const persistedState = loadState()
 const store = configureStore(persistedState);
@@ -15,13 +16,16 @@ const store = configureStore(persistedState);
 // Even though potentially that can be a burst of IO, the expection of the app is to copy/past reads, and not
 // write directly, so leaving as is, unless there's a case for change.
 store.subscribe(throttle(() => {
+  const state = store.getState();
   saveState({
-    awsConfig: store.getState().awsConfig,
+    awsConfig: state.awsConfig,
+    readerConfig: state.readerConfig,
   })
-}, 5000));
+}, 1000));
 
 if (persistedState) {
-  updateAwsConfig(persistedState.awsConfig)
+  updateAwsConfig(persistedState.awsConfig);
+  updateReaderConfig(persistedState.readerConfig);
 }
 
 const AppContainer = process.env.PLAIN_HMR ? Fragment : ReactHotAppContainer;
