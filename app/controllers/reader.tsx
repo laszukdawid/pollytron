@@ -18,7 +18,8 @@ const updateConfig = (newConfig: readerConfigType) => {
 }
 
 const augmentText = (txt: string, speed: number) => {
-  return `<speak><prosody rate='${speed}%'>${txt}</prosody></speak>`;
+  let _txt = txt.replace(/&/g, ' and ');
+  return `<speak><prosody rate='${speed}%'>${_txt}</prosody></speak>`;
 }
 
 const setVoice = (newVoice: string) => { config['voice'] = newVoice; };

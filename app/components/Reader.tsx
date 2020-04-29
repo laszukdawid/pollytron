@@ -74,18 +74,14 @@ export default function Reader(props: ReaderProps) {
   return (
     <div className={styles.reader} onSubmit={onSubmit} >
       <div className={styles.readconf}>
-        <div className={styles.row}>
-          <span>Language:</span>
-          {languageSelector}
-        </div>
-        <div className={styles.row}>
-          <span>Voice:</span>
-          {voiceSelector}
-        </div>
-        <div className={styles.row}>
-          <span>Speed:</span>
-          <input type="number" value={speed} onChange={ev => _setSpeed(Number(ev.target.value))} />
-        </div>
+        <span>Language:</span>
+        {languageSelector}
+
+        <span>Voice:</span>
+        {voiceSelector}
+
+        <span>Speed:</span>
+        <input type="number" value={speed} onChange={ev => _setSpeed(Number(ev.target.value))} />
       </div>
       <div className={styles.readtext}>
         <span>Type to send:</span>
