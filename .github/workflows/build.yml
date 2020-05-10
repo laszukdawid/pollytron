@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest]
 
     steps:
       - name: Check out Git repository
@@ -18,22 +18,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 10
-
-      - name: yarn Install
-        run: |
-          yarn install
-
-      - name: yarn install
-        run: |
-          yarn install
-
-      #      - name: yarn test
-      #        env:
-      #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #        run: |
-      #          yarn package-ci
-      #          yarn lint
-      #          yarn ts
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
