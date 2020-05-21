@@ -1,7 +1,7 @@
 {
   "name": "pollytron",
   "productName": "PollyTron",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Desktop client to use AWS Polly as a text2speach.",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
@@ -37,7 +37,9 @@
     "test-watch": "yarn test --watch"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": ["cross-env NODE_ENV=development eslint --cache"],
+    "*.{js,jsx,ts,tsx}": [
+      "cross-env NODE_ENV=development eslint --cache"
+    ],
     "{*.json,.{babelrc,eslintrc,prettierrc,stylelintrc}}": [
       "prettier --ignore-path .eslintignore --parser json --write"
     ],
@@ -51,7 +53,7 @@
   },
   "build": {
     "productName": "Pollytron",
-    "appId": "com.laszukdawid.Pollytron",
+    "appId": "com.laszukdawid.pollytron",
     "files": [
       "dist/",
       "node_modules/",
@@ -74,11 +76,22 @@
         }
       ]
     },
+    "mac": {
+      "target": [
+        "dmg"
+      ]
+    },
     "win": {
-      "target": ["nsis", "msi"]
+      "target": [
+        "nsis",
+        "msi"
+      ]
     },
     "linux": {
-      "target": ["deb", "rpm", "AppImage"],
+      "target": [
+        "deb",
+        "AppImage"
+      ],
       "category": "Development"
     },
     "directories": {
@@ -87,13 +100,9 @@
     },
     "publish": {
       "provider": "github",
-      "owner": "Dawid Laszuk",
+      "owner": "laszukdawid",
       "private": false
     }
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/laszukdawid/pollytron.git"
   },
   "author": {
     "name": "Dawid Laszuk",
@@ -101,29 +110,33 @@
     "url": "https://laszukdawid.com"
   },
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
-  },
   "keywords": [
     "electron",
     "react",
-    "typescript",
-    "ts",
-    "sass",
-    "webpack",
-    "hot",
-    "reload"
+    "aws",
+    "polly"
   ],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/laszukdawid/pollytron",
   "jest": {
     "testURL": "http://localhost/",
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/fileMock.js",
       "\\.(css|less|sass|scss)$": "identity-obj-proxy"
     },
-    "moduleFileExtensions": ["js", "jsx", "ts", "tsx", "json"],
-    "moduleDirectories": ["node_modules", "app/node_modules"],
-    "setupFiles": ["./internals/scripts/CheckBuildsExist.js"]
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "ts",
+      "tsx",
+      "json"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "app/node_modules"
+    ],
+    "setupFiles": [
+      "./internals/scripts/CheckBuildsExist.js"
+    ]
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -149,9 +162,11 @@
     "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",
     "@babel/register": "^7.9.0",
+    "@types/btoa": "^1.2.3",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/history": "^4.7.5",
+    "@types/howler": "^2.1.2",
     "@types/jest": "^24.9.1",
     "@types/node": "^12",
     "@types/react": "^16.9.17",
@@ -201,7 +216,6 @@
     "eslint-plugin-react": "^7.18.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "eslint-plugin-testcafe": "^0.2.1",
-    "fbjs-scripts": "^1.2.0",
     "file-loader": "^5.0.2",
     "husky": "^4.2.0",
     "identity-obj-proxy": "^3.0.0",
@@ -239,8 +253,6 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@hot-loader/react-dom": "^16.13.0",
-    "@types/btoa": "^1.2.3",
-    "@types/howler": "^2.1.2",
     "aws-sdk": "^2.656.0",
     "btoa": "^1.2.1",
     "connected-react-router": "^6.6.1",
@@ -266,14 +278,18 @@
     "npm": ">=4.x",
     "yarn": ">=0.21.3"
   },
-  "collective": {
-    "url": "https://opencollective.com/electron-react-boilerplate-594"
-  },
-  "browserslist": ["extends browserslist-config-erb"],
+  "browserslist": [
+    "extends browserslist-config-erb"
+  ],
   "prettier": {
     "overrides": [
       {
-        "files": [".prettierrc", ".babelrc", ".eslintrc", ".stylelintrc"],
+        "files": [
+          ".prettierrc",
+          ".babelrc",
+          ".eslintrc",
+          ".stylelintrc"
+        ],
         "options": {
           "parser": "json"
         }
@@ -282,10 +298,15 @@
     "singleQuote": true
   },
   "stylelint": {
-    "extends": ["stylelint-config-standard", "stylelint-config-prettier"]
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-config-prettier"
+    ]
   },
   "renovate": {
-    "extends": ["bliss"]
+    "extends": [
+      "bliss"
+    ]
   },
   "husky": {
     "hooks": {
