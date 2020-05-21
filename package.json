@@ -95,7 +95,7 @@
     },
     "publish": {
       "provider": "github",
-      "owner": "Dawid Laszuk",
+      "owner": "laszukdawid",
       "private": false
     }
   },
@@ -211,7 +211,6 @@
     "eslint-plugin-react": "^7.18.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "eslint-plugin-testcafe": "^0.2.1",
-    "fbjs-scripts": "^1.2.0",
     "file-loader": "^5.0.2",
     "husky": "^4.2.0",
     "identity-obj-proxy": "^3.0.0",
@@ -274,7 +273,9 @@
     "npm": ">=4.x",
     "yarn": ">=0.21.3"
   },
-  "browserslist": ["extends browserslist-config-erb"],
+  "browserslist": [
+    "extends browserslist-config-erb"
+  ],
   "prettier": {
     "overrides": [
       {
