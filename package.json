@@ -53,7 +53,7 @@
   },
   "build": {
     "productName": "Pollytron",
-    "appId": "com.laszukdawid.Pollytron",
+    "appId": "com.laszukdawid.pollytron",
     "files": [
       "dist/",
       "node_modules/",
@@ -99,7 +99,6 @@
       "private": false
     }
   },
-  "repository": "github:laszukdawid/pollytron",
   "author": {
     "name": "Dawid Laszuk",
     "email": "pollytron@dawid.lasz.uk",
@@ -109,12 +108,8 @@
   "keywords": [
     "electron",
     "react",
-    "typescript",
-    "ts",
-    "sass",
-    "webpack",
-    "hot",
-    "reload"
+    "aws",
+    "polly"
   ],
   "homepage": "https://github.com/laszukdawid/pollytron",
   "jest": {
@@ -163,7 +158,6 @@
     "@babel/preset-typescript": "^7.9.0",
     "@babel/register": "^7.9.0",
     "@types/btoa": "^1.2.3",
-    "@types/howler": "^2.1.2",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/history": "^4.7.5",
