@@ -30,6 +30,7 @@ export default function Reader(props: ReaderProps) {
   const [language, setLanguage] = useState(props.readerConfig.language);
   const [voice, setVoice] = useState(props.readerConfig.voice);
   const [speed, setSpeed] = useState(props.readerConfig.speed);
+  const [wikiFilter, setWikiFilter] = useState(false);
 
   const languageSelector = (
     <select value={language} onChange={ev => changeLanguage(ev.target.value)} >
@@ -66,9 +67,17 @@ export default function Reader(props: ReaderProps) {
     <select value={voice} onChange={ev => _setVoice(ev.target.value)} >
       {voiceOptions}
     </select>);
+  
+  const applyWikiFilter = () => {
+    props.setReaderText(props.readerText.replace(/\[\d+(,\s*\d+)*\]/g, ''));
+  }
 
   const onSubmit = () => {
-    reader.readText(props.readerText, props.readerConfig);
+    let text = props.readerText;
+    if (wikiFilter) {
+      text = text.replace(/\[\d+(,\s*\d+)*\]/g, '');
+    }
+    reader.readText(text, props.readerConfig);
   }
 
   return (
@@ -82,12 +91,16 @@ export default function Reader(props: ReaderProps) {
 
         <span>Speed:</span>
         <input type="number" value={speed} onChange={ev => _setSpeed(Number(ev.target.value))} />
+
+        <span>Wiki citation:</span>
+        <input type="checkbox" checked={wikiFilter} onChange={ev => setWikiFilter(!wikiFilter)}></input>
       </div>
       <div className={styles.readtext}>
         <span>Type to send:</span>
         <textarea className={styles.textarea} value={props.readerText} onChange={ev => props.setReaderText(ev.target.value)} />
         <button type="submit" onClick={onSubmit} >Read</button>
         <button type="submit" onClick={reader.readClipboard} >Read from clipboard</button>
+        <button onClick={applyWikiFilter} >Wiki filter</button>
       </div>
     </div>
   );
