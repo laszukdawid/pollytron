@@ -1,5 +1,4 @@
 import fs from 'fs';
-import chalk from 'chalk';
 import { execSync } from 'child_process';
 import { dependencies } from '../../package.json';
 
@@ -22,25 +21,18 @@ if (dependencies) {
     if (filteredRootDependencies.length > 0) {
       const plural = filteredRootDependencies.length > 1;
       console.log(`
- ${chalk.whiteBright.bgYellow.bold(
-   'Webpack does not work with native dependencies.'
- )}
-${chalk.bold(filteredRootDependencies.join(', '))} ${
-        plural ? 'are native dependencies' : 'is a native dependency'
-      } and should be installed inside of the "./app" folder.
- First uninstall the packages from "./package.json":
-${chalk.whiteBright.bgGreen.bold('yarn remove your-package')}
- ${chalk.bold(
-   'Then, instead of installing the package to the root "./package.json":'
- )}
-${chalk.whiteBright.bgRed.bold('yarn add your-package')}
- ${chalk.bold('Install the package to "./app/package.json"')}
-${chalk.whiteBright.bgGreen.bold('cd ./app && yarn add your-package')}
- Read more about native dependencies at:
-${chalk.bold(
-  'https://github.com/electron-react-boilerplate/electron-react-boilerplate/wiki/Module-Structure----Two-package.json-Structure'
-)}
- `);
+Webpack does not work with native dependencies.
+${filteredRootDependencies.join(', ')} ${plural ? 'are native dependencies' : 'is a native dependency'
+        } and should be installed inside of the "./app" folder.
+First uninstall the packages from "./package.json":
+  yarn remove your-package
+Then, instead of installing the package to the root "./package.json":
+  yarn add your-package
+Install the package to "./app/package.json"
+  cd ./app && yarn add your-package
+Read more about native dependencies at:
+  https://github.com/electron-react-boilerplate/electron-react-boilerplate/wiki/Module-Structure----Two-package.json-Structure
+`);
       process.exit(1);
     }
   } catch (e) {
