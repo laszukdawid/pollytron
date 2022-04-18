@@ -1,7 +1,7 @@
 {
   "name": "pollytron",
   "productName": "PollyTron",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Desktop client to use AWS Polly as a text2speach.",
   "main": "./main.prod.js",
   "author": {

@@ -8,7 +8,6 @@
 import path from 'path';
 import fs from 'fs';
 import webpack from 'webpack';
-import chalk from 'chalk';
 import merge from 'webpack-merge';
 import { spawn, execSync } from 'child_process';
 import { TypedCssModulesPlugin } from 'typed-css-modules-webpack-plugin';
@@ -34,9 +33,7 @@ const requiredByDLLConfig = module.parent.filename.includes(
  */
 if (!requiredByDLLConfig && !(fs.existsSync(dll) && fs.existsSync(manifest))) {
   console.log(
-    chalk.black.bgYellow.bold(
-      'The DLL files are missing. Sit back while we build them for you with "yarn build-dll"'
-    )
+    'The DLL files are missing. Sit back while we build them for you with "yarn build-dll"'
   );
   execSync('yarn build-dll');
 }
@@ -199,10 +196,10 @@ export default merge.smart(baseConfig, {
     requiredByDLLConfig
       ? null
       : new webpack.DllReferencePlugin({
-          context: path.join(__dirname, '..', 'dll'),
-          manifest: require(manifest),
-          sourceType: 'var'
-        }),
+        context: path.join(__dirname, '..', 'dll'),
+        manifest: require(manifest),
+        sourceType: 'var'
+      }),
 
     new webpack.HotModuleReplacementPlugin({
       multiStep: true
