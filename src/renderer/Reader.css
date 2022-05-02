@@ -1,0 +1,27 @@
+.reader {
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+}
+
+.readconf {
+  display: grid;
+  margin: 0.0em;
+  flex: 0;
+  grid-template-columns: repeat(2, [col-start] 40% [col-end]);
+  grid-row-gap: 0.5em;
+}
+
+.readtext {
+  flex: 1;
+  direction: row;
+  height: 100%;
+  margin-top: 2em;
+}
+
+.textarea {
+  /* height: 100%; */
+  min-height: 100px;
+  resize: vertical;
+  /* default: all */
+}

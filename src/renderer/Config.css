@@ -1,0 +1,61 @@
+.configPage {
+  display: flex;
+  flex-direction: column;
+}
+
+;
+
+.configNav {
+  flex: 1;
+  /* position: absolute; */
+  display: flex;
+  /* flex-direction: row; */
+  align-items: center;
+  width: 100%;
+}
+
+.configNav h1 {
+  flex: 2;
+  width: 100%;
+  text-align: center;
+}
+
+.configNav button {
+  flex: 1;
+  background-color: #21ab28;
+  border: 0;
+  border-radius: 10px;
+  max-width: 5em;
+  height: 3em;
+}
+
+.configNav button * {
+  margin: 0.3em;
+}
+
+.backButton {
+  flex: 0;
+  margin: 0.5em;
+
+}
+
+.config {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.awsConfig {
+  flex: 1;
+  max-width: 100%;
+}
+
+.awsConfig>* {
+  margin: 1em 0;
+}
+
+.awsConfig form {
+  display: grid;
+  grid-row-gap: 8px;
+  grid-template-columns: repeat(12, 1fr);
+}
